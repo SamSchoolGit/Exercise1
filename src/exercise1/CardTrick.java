@@ -7,7 +7,10 @@ package exercise1;
  *
  * @author dancye
  * @author Paul Bonenfant Jan 25, 2022 
+ * @author Samuel Verdejo Jan 27. 2022
  */
+import java.util.*;
+
 public class CardTrick {
     
     public static void main(String[] args) {
@@ -21,6 +24,13 @@ public class CardTrick {
             //card.setSuit(Card.SUITS[insert call to random number between 0-3 here])
             // Hint: You can use Random -> random.nextInt(n) to get a random number between 0 and n-1 (inclusive)
             //       Don't worry about duplicates at this point
+            
+            Random random = new Random();
+            
+            card.setValue(1 + random.nextInt(13));
+            card.setSuit(Card.SUITS[random.nextInt(Card.SUITS.length)]);
+            
+            hand[i] = card;
         }
 
         // insert code to ask the user for Card value and suit, create their card
@@ -32,7 +42,18 @@ public class CardTrick {
         // Then loop through the cards in the array to see if there's a match.
         
         // If the guess is successful, invoke the printInfo() method below.
+        Scanner in = new Scanner(System.in);
+        System.out.println("Pick a card: (value 1-13 then suit, 1 for hearts, 2 for diamonds, 3 for spades, 4 for clubs)");
         
+        Card userCard = new Card();
+        userCard.setValue(in.nextInt());
+        userCard.setSuit(Card.SUITS[in.nextInt()]);
+        
+        for(Card c: hand) {
+            if(c.getValue() == userCard.getValue() && c.getSuit().equals(userCard.getSuit())) {
+                printInfo();
+            }
+        }
     }
 
     /**
